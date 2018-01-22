@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Панель администратора</title>
+    <script>
+        window.onload = function() {
+            document.getElementsByName('hash')[0].value = location.hash;
+        };
+    </script>
+</head>
+<body>
+<form action="/adminlogin" method="post">
+    <h2>Панель администратора</h2>
+    <input type="hidden" name="hash">
+    <input type="text" name="username" placeholder="логин" required autofocus class="form-control">
+    <input type="password" name="password" placeholder="пароль" required class="form-control">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" name="remember">Запомнить меня
+        </label>
+    </div>
+    <button type="submit" class="btn btn-block btn-primary">Войти</button>
+</form>
+</body>
+</html>

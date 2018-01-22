@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Админка Dark Fair</title>
+
+    <style>
+        .survey-form {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: white;
+        }
+
+        button,
+        input {
+            margin: 10px 0;
+            display: block;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    Список опросов:
+    <div id="SurveysCnt"></div>
+    <button id="AddNewSurveyBtn">Создать новый опрос</button>
+
+    <div id="NewSurveyForm" class="survey-form hidden">
+        <button id="CloseSurveyFormBtn">Закрыть</button>
+        <h2>Создание нового опросника</h2>
+        <input id="SurveyNameInput" type="text" placeholder="Название опроса">
+        <b>Вопросы:</b>
+        <div id="QuestionsCnt">
+
+        </div>
+        <button id="AddQuestionBtn">Добавить вопрос</button>
+        <button id="SaveSurveyBtn">Сохранить опрос</button>
+    </div>
+
+    <script src="/js/admin/app.js"></script>
+</body>
+</html>

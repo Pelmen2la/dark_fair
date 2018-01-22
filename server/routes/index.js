@@ -9,4 +9,7 @@ module.exports = function(app) {
             res.send(indexPageHtml);
         });
     });
+
+    require('./admin/index')(app);
+    require('./data_api/survey')(app);
 };
