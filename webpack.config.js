@@ -3,7 +3,8 @@ var webpack = require('webpack');
 module.exports = {
     context: __dirname + '/static/',
     entry: {
-        app: './js/app.js'
+        app: './js/app.js',
+        adminapp: './js/admin/app.js'
     },
     output: { path: __dirname + '/static/dist/js/', filename: '[name].js'},
     module: {

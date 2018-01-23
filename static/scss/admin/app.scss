@@ -1,0 +1,18 @@
+.survey-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: white;
+}
+
+button,
+input {
+    margin: 10px 0;
+    display: block;
+}
+
+.hidden {
+    visibility: hidden;
+}
