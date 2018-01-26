@@ -21,6 +21,7 @@
     "cssnext": "^1.8.4",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "mobile-detect": "^1.4.1",
     "mongoose": "^5.0.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
@@ -34,7 +35,9 @@
     "postcss-mixins": "^6.2.0",
     "postcss-nested": "^3.0.0",
     "postcss-simple-vars": "^4.1.0",
+    "pug": "^2.0.0-rc.4",
     "require-tree": "^1.1.1",
+    "reset-css": "^2.2.1",
     "style-loader": "^0.19.1",
     "webpack": "^3.10.0"
   },

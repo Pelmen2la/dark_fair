@@ -1,0 +1,60 @@
+doctype html
+html(class=isMobile ? 'mobile' : 'desktop')
+  head
+    title
+      |Page title
+
+  body
+
+    div(class="main-block start-block")
+      h1
+        |dark fair
+      div(class="text-block")
+        | creama cup, frappucino decaffeinated mocha sit galao
+        br
+        | seasonal french press brewed coffee. aromatic milk variety,
+        br
+        | roast doppio aroma breve qui con pannna galao?
+      div(class="main-btn")
+        |watch teaser
+      div(class="main-btn")
+        | buy ticket
+      div(class="main-btn")
+        | choose your role
+
+
+
+    div(class="main-block description-block")
+      div(class="text-block order0")
+        img(src="/images/darkfair/description0.jpg")
+        |creama cup, frappucino decaffeinated mocha sit galao
+        br
+        |seasonal french press brewed coffee. aromatic milk variety,
+        br
+        |roast doppio aroma breve qui con pannna galao?
+      div(class="text-block order1")
+        if isMobile
+          img(src="/images/darkfair/description1.jpg")
+        | creama cup, frappucino decaffeinated mocha sit galao
+        br
+        | seasonal french press brewed coffee. aromatic milk variety,
+        br
+        | roast doppio aroma breve qui con pannna galao?
+        if !isMobile
+          img(src="/images/darkfair/description1.jpg")
+
+    div(class="main-block polling-block")
+      ul(class="question-list")
+        each q, i in questions
+          li(class="card")= i
+      div(class="text-block")= questions[0].text
+      ul(class="answer-list")
+        each a, i in questions[0].answers
+          li
+            input(id= 'option' + i type="radio" name="polling" value= i)
+            div(class="check")
+              div(class="inside")
+            label(for= 'option' + i)= a
+
+    script(type='text/javascript')
+      include ./../dist/js/darkfair.js

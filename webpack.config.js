@@ -4,7 +4,8 @@ module.exports = {
     context: __dirname + '/static/',
     entry: {
         app: './js/app.js',
-        adminapp: './js/admin/app.js'
+        adminapp: './js/admin/app.js',
+        darkfair: './js/darkfair.js',
     },
     output: { path: __dirname + '/static/dist/js/', filename: '[name].js'},
     module: {
