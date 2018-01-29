@@ -2,59 +2,82 @@ doctype html
 html(class=isMobile ? 'mobile' : 'desktop')
   head
     title
-      |Page title
+      | Dark fair
 
   body
 
-    div(class="main-block start-block")
-      h1
-        |dark fair
-      div(class="text-block")
-        | creama cup, frappucino decaffeinated mocha sit galao
-        br
-        | seasonal french press brewed coffee. aromatic milk variety,
-        br
-        | roast doppio aroma breve qui con pannna galao?
-      div(class="main-btn")
-        |watch teaser
-      div(class="main-btn")
-        | buy ticket
-      div(class="main-btn")
-        | choose your role
+    div(class="main-cnt" id="MainContainer")
+
+      div(class="menu-cnt" id="MenuContainer")
+        img(src="/images/darkfair/menu_icon.png" class="open")
+        img(src="/images/darkfair/menu_close_icon.png" class="close")
+        div(class="menu-text-cnt")
+          b
+            | dark fair
+          ul(class="menu-list")
+            li(data-block-name="description")
+              | Info
+            li(data-block-name="polling")
+              | Choose your role
+            li(data-block-name="tickets")
+              | Buy tickets
+            li(data-block-name="contacts")
+              | Contacts
+
+      div(class="main-block start-block")
+        h1
+          |dark fair
+        div(class="text-block")
+          | creama cup, frappucino decaffeinated mocha sit galao
+          br
+          | seasonal french press brewed coffee. aromatic milk variety,
+          br
+          | roast doppio aroma breve qui con pannna galao?
+        div(class="main-btn")
+          |watch teaser
+        div(class="main-btn")
+          | buy ticket
+        div(class="main-btn")
+          | choose your role
 
 
 
-    div(class="main-block description-block")
-      div(class="text-block order0")
-        img(src="/images/darkfair/description0.jpg")
-        |creama cup, frappucino decaffeinated mocha sit galao
-        br
-        |seasonal french press brewed coffee. aromatic milk variety,
-        br
-        |roast doppio aroma breve qui con pannna galao?
-      div(class="text-block order1")
-        if isMobile
-          img(src="/images/darkfair/description1.jpg")
-        | creama cup, frappucino decaffeinated mocha sit galao
-        br
-        | seasonal french press brewed coffee. aromatic milk variety,
-        br
-        | roast doppio aroma breve qui con pannna galao?
-        if !isMobile
-          img(src="/images/darkfair/description1.jpg")
+      div(class="main-block description-block" id="DescriptionBlock")
+        div(class="text-block order0")
+          img(src="/images/darkfair/description0.png")
+          |creama cup, frappucino decaffeinated mocha sit galao
+          br
+          |seasonal french press brewed coffee. aromatic milk variety,
+          br
+          |roast doppio aroma breve qui con pannna galao?
+        div(class="text-block order1")
+          if isMobile
+            img(src="/images/darkfair/description1.png")
+          | creama cup, frappucino decaffeinated mocha sit galao
+          br
+          | seasonal french press brewed coffee. aromatic milk variety,
+          br
+          | roast doppio aroma breve qui con pannna galao?
+          if !isMobile
+            img(src="/images/darkfair/description1.png")
 
-    div(class="main-block polling-block")
-      ul(class="question-list")
-        each q, i in questions
-          li(class="card")= i
-      div(class="text-block")= questions[0].text
-      ul(class="answer-list")
-        each a, i in questions[0].answers
-          li
-            input(id= 'option' + i type="radio" name="polling" value= i)
-            div(class="check")
-              div(class="inside")
-            label(for= 'option' + i)= a
+      div(class="main-block polling-block" id="PollingBlock")
+        ul(class="question-list" id="QuestionList")
+        div(class="text-block" id="QuestionTextCnt")
+        ul(class="answer-list" id="QuestionAnswerList")
 
+      div(class="main-block contacts-block" id="ContactsBlock")
+        h1
+          | contacts
+        div(class="text-block")
+          | creama cup, frappucino decaffeinated mocha sit galao
+          br
+          | seasonal french press brewed coffee. aromatic milk variety,
+          br
+          | roast doppio aroma breve qui con pannna galao?
+
+
+
+    script(type="text/javascript")!= "window.questionListData = " + JSON.stringify(questions) + ";"
     script(type='text/javascript')
       include ./../dist/js/darkfair.js

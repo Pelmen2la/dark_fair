@@ -24,9 +24,13 @@ function removeClassFromElement(el, className) {
 
 function stringFormat(tpl) {
     for(var i = 1; i < arguments.length; i++) {
-        tpl = tpl.replace('{' + (i - 1) + '}', arguments[i]);
+        tpl = tpl.replace(new RegExp('\\{' + (i - 1) + '\\}', 'g'), arguments[i]);
     }
     return tpl;
+};
+
+function capitalizeString(str) {
+    return str[0].toUpperCase() + str.substring(1);
 };
 
 function createElementFromHTML(htmlString) {
@@ -41,5 +45,6 @@ module.exports = {
     addClassToElement: addClassToElement,
     removeClassFromElement: removeClassFromElement,
     stringFormat: stringFormat,
+    capitalizeString: capitalizeString,
     createElementFromHTML: createElementFromHTML
 };

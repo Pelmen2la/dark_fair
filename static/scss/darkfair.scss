@@ -5,7 +5,7 @@
     src: url(/fonts/Cabana-Regular.otf);
 }
 
-body, html {
+body, html, .main-cnt {
     height: 100%;
 }
 
@@ -13,6 +13,10 @@ html {
     font-family: cabana;
     font-size: 30px;
     color: #F1E6D2;
+}
+
+.main-cnt {
+    overflow-y: scroll;
 }
 
 h1 {
@@ -26,6 +30,8 @@ h1 {
     padding: 5em 0;
     background: black;
     overflow: auto;
+    background-image: url("/images/darkfair/black_background.png");
+    background-size: contain;
 }
 
 .main-btn {
@@ -36,17 +42,72 @@ h1 {
     margin-top: 0.388888em;
     padding: 0.15em;
     border-radius: 8px;
-    background: #591441;
+    background-image: url("/images/darkfair/mainbutton.png");
     text-align: center;
     cursor: pointer;
 }
 
 .text-block {
     text-align: center;
+    width: 31.25%;
+    min-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5em;
+}
+
+.menu-cnt {
+    position: fixed;
+    top: 60px;
+    left: 60px;
+    overflow: visible;
+    padding: 5px;
+
+    * {
+        cursor: pointer;
+    }
+
+    b {
+        font-size: 1.5em;
+    }
+
+    img {
+        vertical-align: middle;
+        margin: 14px 36px 14px 0;
+        float: left;
+
+        &.close {
+            display: none;
+        }
+    }
+
+    &.opened {
+        img.open {
+            display: none;
+        }
+        img.close {
+            display: initial;
+        }
+
+        .menu-text-cnt .menu-list {
+            display: initial;
+        }
+    }
+
+    .menu-text-cnt {
+        float: left;
+
+        .menu-list {
+            display: none;
+            color: white;
+
+            li {
+                padding: 10px 0;
+            }
+        }
+    }
 }
 
 .description-block {
-    background: black;
     text-align: center;
 
     .text-block {
@@ -81,15 +142,21 @@ html.mobile {
     overflow: hidden;
     text-align: center;
     .card {
-        font-size: 1.5em;
+        font-size: 2em;
         font-weight: bold;
         display: inline-block;
-        margin-right: 0.822222em;
-        border: 3px solid #FFFCEA;
-        border-radius: 5px;
-        padding: 0.222222em;
-        cursor: pointer;
+        height: 88px;
+        width: 49px;
+        margin-right: 0.6em;
+        text-align: center;
+        line-height: 80px;
+        background: url("/images/darkfair/fool.png") no-repeat;
+        background-size: cover;
 
+        &.disabled {
+            color: transparent;
+            background: url("/images/darkfair/fool_dark.png") no-repeat;
+        }
         &:last-child {
             margin: 0;
         }
@@ -97,36 +164,53 @@ html.mobile {
 }
 
 .answer-list {
+    width: 31.25%;
+    min-width: 600px;
+    margin: 0 auto;
+    margin-top: 2em;
+
     input {
-        visibility: hidden;
+        display: none;
 
         &:checked + .check .inside {
             visibility: visible;
         }
     }
 
-    .check {
-        height: 18px;
-        width: 18px;
-        border-radius: 18px;
-        border: 4px solid #EDEFCB;
-        display: inline-block;
-        cursor: pointer;
-        line-height: 18px;
+    li {
+        div.check {
+            height: 18px;
+            width: 18px;
+            border-radius: 18px;
+            border: 4px solid #EDEFCB;
+            display: inline-block;
+            cursor: pointer;
+            line-height: 18px;
+            margin: 3px 25px 0 0;
+            float: left;
 
-        &:hover {
-            border-color: #FAEDDC;
+            &:hover {
+                border-color: #FAEDDC;
+            }
+
+            .inside {
+                visibility: hidden;
+                display: inline-block;
+                height: 8px;
+                width: 8px;
+                margin: 0 0 7px 4px;
+                background: #EDEFCB;
+                border-radius: 8px;
+                border: 1px solid #EDEFCB;
+            }
         }
 
-        .inside {
-            visibility: hidden;
-            display: inline-block;
-            height: 8px;
-            width: 8px;
-            margin: 0 0 7px 4px;
-            background: #EDEFCB;
-            border-radius: 8px;
-            border: 1px solid #EDEFCB;
+        label {
+            display: block;
+            float: left;
+            width: calc(100% - 65px);
+            margin-bottom: 1em;
+            cursor: pointer;
         }
     }
 }
