@@ -15,11 +15,15 @@ function gBID(id) {
 };
 
 function addClassToElement(el, className) {
-    el.className += ' ' + className;
+    el.classList.add(className);
 };
 
 function removeClassFromElement(el, className) {
-    el.className = el.className.replace(' ' + className, '');
+    el.classList.remove(className);
+};
+
+function toggleElementClass(condition, el, className) {
+    condition ? addClassToElement(el, className) : removeClassFromElement(el, className);
 };
 
 function stringFormat(tpl) {
@@ -44,6 +48,7 @@ module.exports = {
     gBID: gBID,
     addClassToElement: addClassToElement,
     removeClassFromElement: removeClassFromElement,
+    toggleElementClass: toggleElementClass,
     stringFormat: stringFormat,
     capitalizeString: capitalizeString,
     createElementFromHTML: createElementFromHTML

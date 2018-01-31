@@ -17,7 +17,7 @@ html(class=isMobile ? 'mobile' : 'desktop')
           ul(class="menu-list")
             li(data-block-name="description")
               | Info
-            li(data-block-name="polling")
+            li(data-block-name="role")
               | Choose your role
             li(data-block-name="tickets")
               | Buy tickets
@@ -62,9 +62,28 @@ html(class=isMobile ? 'mobile' : 'desktop')
             img(src="/images/darkfair/description1.png")
 
       div(class="main-block polling-block" id="PollingBlock")
-        ul(class="question-list" id="QuestionList")
+        ul(class="image-list question-list" id="QuestionList")
         div(class="text-block" id="QuestionTextCnt")
         ul(class="answer-list" id="QuestionAnswerList")
+
+      div(class="main-block role-block" id="RoleBlock")
+        ul(class="image-list role-list" id="RoleList")
+          each role in roles
+            li(data-role-name=role.name)
+              img(src="/images/darkfair/fool.png")
+              span= role.name
+        div(class="role-info-cnt" id="RoleInfoCnt")
+          img(src="/images/darkfair/fool.png")
+          div(class="description-cnt")
+            b(class="name")
+            div(class="main-btn")
+              | watch teaser
+            p(class="description")
+
+        div(class="main-btn buy-ticket-btn")
+          | buy ticket for this role
+
+
 
       div(class="main-block contacts-block" id="ContactsBlock")
         h1
@@ -79,5 +98,6 @@ html(class=isMobile ? 'mobile' : 'desktop')
 
 
     script(type="text/javascript")!= "window.questionListData = " + JSON.stringify(questions) + ";"
+    script(type="text/javascript")!= "window.roleListData = " + JSON.stringify(roles) + ";"
     script(type='text/javascript')
       include ./../dist/js/darkfair.js

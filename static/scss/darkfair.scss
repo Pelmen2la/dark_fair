@@ -1,8 +1,8 @@
 @import 'reset-css/reset.css';
 
 @font-face {
-    font-family: cabana;
-    src: url(/fonts/Cabana-Regular.otf);
+    font-family: katona;
+    src: url(/fonts/Katona.ttf);
 }
 
 body, html, .main-cnt {
@@ -10,7 +10,7 @@ body, html, .main-cnt {
 }
 
 html {
-    font-family: cabana;
+    font-family: katona;
     font-size: 30px;
     color: #F1E6D2;
 }
@@ -23,6 +23,19 @@ h1 {
     text-align: center;
     font-size: 4em;
     margin-bottom: 0.25em;
+}
+
+.image-list {
+    list-style-type: none;
+    overflow: hidden;
+    text-align: center;
+    li {
+        display: inline-block;
+
+        &:last-child {
+            margin: 0;
+        }
+    }
 }
 
 .main-block {
@@ -43,8 +56,11 @@ h1 {
     padding: 0.15em;
     border-radius: 8px;
     background-image: url("/images/darkfair/mainbutton.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     text-align: center;
     cursor: pointer;
+    overflow: auto;
 }
 
 .text-block {
@@ -138,27 +154,20 @@ html.mobile {
 }
 
 .question-list {
-    list-style-type: none;
-    overflow: hidden;
-    text-align: center;
-    .card {
-        font-size: 2em;
-        font-weight: bold;
-        display: inline-block;
+    li {
+        margin-right: 0.6em;
+        background-size: cover;
         height: 88px;
         width: 49px;
-        margin-right: 0.6em;
+        font-size: 2em;
+        font-weight: bold;
         text-align: center;
         line-height: 80px;
-        background: url("/images/darkfair/fool.png") no-repeat;
-        background-size: cover;
+        background-image: url("/images/darkfair/fool.png");
 
         &.disabled {
             color: transparent;
-            background: url("/images/darkfair/fool_dark.png") no-repeat;
-        }
-        &:last-child {
-            margin: 0;
+            background-image: url("/images/darkfair/fool_dark.png");
         }
     }
 }
@@ -212,5 +221,68 @@ html.mobile {
             margin-bottom: 1em;
             cursor: pointer;
         }
+    }
+}
+
+.role-block {
+    .role-list {
+        margin-bottom: 2em;
+
+        li {
+            font-size: 1.3em;
+            margin-right: 1em;
+            height: 176px;
+            width: 98px;
+            padding: 4px;
+            border-radius: 12px;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+
+            &.highlighted {
+                background-image: url("/images/darkfair/mainbutton.png");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+
+            &.selected span {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .role-info-cnt {
+        width: 50%;
+        min-width: 720px;
+        margin: 0 auto;
+        min-height: 50%;
+        overflow: auto;
+        min-height: 570px;
+
+        > img {
+            width: 30%;
+            float: left;
+        }
+        div.description-cnt {
+            width: 65%;
+            float: right;
+            text-align: center;
+
+            b.name {
+                font-size: 2em;
+            }
+
+            .main-btn {
+                margin: 0.3em auto;
+            }
+        }
+    }
+
+    .buy-ticket-btn {
+        width: 50%;
+        border-radius: 16px;
     }
 }
