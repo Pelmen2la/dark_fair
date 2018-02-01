@@ -10,7 +10,8 @@ var darkfairModule = new function() {
                 '</div>' +
                 '<label for="{0}">{2}</label>' +
             '</li>';
-    var me = this;
+    var me = this,
+        scrollHandlerTimeoutId;
 
     function renderQuestions() {
         utils.gBID('QuestionList').innerHTML = window.questionListData.map((q, i) => {
@@ -64,7 +65,11 @@ var darkfairModule = new function() {
 
     function scrollToBlock(blockName) {
         var block = utils.gBID(utils.capitalizeString(blockName) + 'Block');
-        utils.gBID('MainContainer').scrollTop += block.getBoundingClientRect().top;
+        scrollMainCtn(block.getBoundingClientRect().top);
+    };
+
+    function scrollMainCtn(scrollVal) {
+        utils.gBID('MainContainer').scrollTop += scrollVal;
     };
 
     function ensureActiveQuestion() {
@@ -109,12 +114,44 @@ var darkfairModule = new function() {
         selectRole(window.roleListData.filter((r) => r.name == el.dataset.roleName)[0]);
     };
 
+    function onMainCntScroll() {
+        window.clearTimeout(scrollHandlerTimeoutId);
+        scrollHandlerTimeoutId = window.setTimeout(function() {
+            var cnt = utils.gBID('MainContainer'),
+                upArrow = document.querySelector('.navigation-arrow.up'),
+                downArrow = document.querySelector('.navigation-arrow.down');
+            utils.toggleElementClass(cnt.scrollTop > 300, upArrow, 'visible');
+            utils.toggleElementClass(cnt.scrollHeight - document.body.offsetHeight - cnt.scrollTop > 300, downArrow, 'visible');
+        }, 100);
+    };
+
+    function onNavArrowClick() {
+        var isUp = this.className.indexOf('up') > - 1,
+            mainCnt = utils.gBID('MainContainer'),
+            targetOffset = isUp ? 0 : mainCnt.scrollHeight,
+            scrollTop = mainCnt.scrollTop;
+        document.querySelectorAll('.main-block').forEach((b) => {
+            var scrollDiff = b.offsetTop - scrollTop;
+            if(isUp && scrollDiff < 0 && scrollDiff < (scrollTop - targetOffset)) {
+                targetOffset = b.offsetTop;
+            }
+            if(!isUp && scrollDiff > 0 && scrollDiff < (targetOffset - scrollTop)) {
+                targetOffset = b.offsetTop;
+            }
+        });
+        mainCnt.scrollTop = targetOffset;
+    };
+
     me.init = function() {
         renderQuestions();
         ensureActiveQuestion();
         selectRole(window.roleListData[0]);
         utils.gBID('MenuContainer').addEventListener('click', onMenuCntClick);
         utils.gBID('RoleBlock').addEventListener('click', onRoleBlockClick);
+        utils.gBID('MainContainer').addEventListener('scroll', onMainCntScroll);
+        ['up', 'down'].forEach((name) => {
+            document.querySelector('.navigation-arrow.' + name).addEventListener('click', onNavArrowClick);
+        });
     };
 };
 

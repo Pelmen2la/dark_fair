@@ -38,6 +38,35 @@ h1 {
     }
 }
 
+.navigation-arrow {
+    position: fixed;
+    left: calc(50% - 18px);
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    display: none;
+
+    &.up {
+        top: 30px;
+    }
+    &.down {
+        bottom: 30px;
+    }
+
+    &.visible {
+        display: initial;
+        opacity: 0.3;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.mobile .navigation-arrow&.visible {
+    opacity: 0.8;
+}
+
 .main-block {
     min-height: 100%;
     padding: 5em 0;
