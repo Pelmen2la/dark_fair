@@ -104,8 +104,10 @@ h1 {
     position: fixed;
     top: 60px;
     left: 60px;
-    overflow: visible;
+    height: 40px;
+    overflow: hidden;
     padding: 5px;
+    transition: height 0.3s ease-in-out;
 
     * {
         cursor: pointer;
@@ -126,6 +128,8 @@ h1 {
     }
 
     &.opened {
+        height: 260px;
+
         img.open {
             display: none;
         }
@@ -134,7 +138,7 @@ h1 {
         }
 
         .menu-text-cnt .menu-list {
-            display: initial;
+            /*display: initial;*/
         }
     }
 
@@ -142,7 +146,7 @@ h1 {
         float: left;
 
         .menu-list {
-            display: none;
+            /*display: none;*/
             color: white;
 
             li {
