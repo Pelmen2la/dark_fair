@@ -315,3 +315,48 @@ html.mobile {
         border-radius: 16px;
     }
 }
+
+.dp-permanent {
+    margin: 0 auto;
+
+    .dp-next, .dp-prev, .dp-cal-month, .dp-cal-year, .dp-day, .dp-month, .dp-year {
+        &:focus,
+        &:hover {
+            background: gray;
+        }
+    }
+
+    .dp-cal-header {
+        margin: 0;
+
+
+        .dp-prev, .dp-next {
+            top: 24px;
+        }
+    }
+
+    .dp {
+        max-height: 100%;
+
+        .dp-days {
+            background-color: #2E2E2E;
+
+            .dp-day {
+                color: #F1E6D2;
+
+                &.dp-day-disabled {
+                    opacity: 0.5;
+                }
+                &.dp-selected,
+                &:focus,
+                &:hover {
+                    background-color: gray;
+                }
+            }
+        }
+    }
+
+    .dp-cal-footer {
+        display: none;
+    }
+}

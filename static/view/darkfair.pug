@@ -83,7 +83,8 @@ html(class=isMobile ? 'mobile' : 'desktop')
         div(class="main-btn buy-ticket-btn")
           | buy ticket for this role
 
-
+      div(class="main-block")
+        div(id="CalendarCnt")
 
       div(class="main-block contacts-block" id="ContactsBlock")
         h1
@@ -98,8 +99,7 @@ html(class=isMobile ? 'mobile' : 'desktop')
       img(src="/images/darkfair/arrow_up.png" class="navigation-arrow up")
       img(src="/images/darkfair/arrow_down.png" class="navigation-arrow down")
 
-
-
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css')
     script(type="text/javascript")!= "window.questionListData = " + JSON.stringify(questions) + ";"
     script(type="text/javascript")!= "window.roleListData = " + JSON.stringify(roles) + ";"
     script(type='text/javascript')

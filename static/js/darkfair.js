@@ -1,5 +1,7 @@
 import utils from './common/utils.js';
 import './../scss/darkfair.scss';
+import TinyDatePicker from 'tiny-date-picker';
+import './../../node_modules/tiny-date-picker/tiny-date-picker.min.css';
 
 var darkfairModule = new function() {
     const answerTpl =
@@ -9,7 +11,32 @@ var darkfairModule = new function() {
                     '<div class="inside"></div>' +
                 '</div>' +
                 '<label for="{0}">{2}</label>' +
-            '</li>';
+            '</li>',
+        datePickerCfg = {
+            mode: 'dp-permanent',
+            dayOffset: 1,
+            min: new Date(),
+            lang: {
+                days: ['Воскр', 'Пон', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                months: [
+                    'Январь',
+                    'Февраль',
+                    'Март',
+                    'Апрель',
+                    'Май',
+                    'Июнь',
+                    'Июль',
+                    'Август',
+                    'Сентябрь',
+                    'Октябрь',
+                    'Ноябрь',
+                    'Декабрь',
+                ],
+                today: 'Сегодня',
+                clear: 'Очистить',
+                close: 'Закрыть'
+            },
+        };
     var me = this,
         scrollHandlerTimeoutId;
 
@@ -152,6 +179,7 @@ var darkfairModule = new function() {
         ['up', 'down'].forEach((name) => {
             document.querySelector('.navigation-arrow.' + name).addEventListener('click', onNavArrowClick);
         });
+        TinyDatePicker('#CalendarCnt', datePickerCfg);
     };
 };
 
