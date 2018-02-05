@@ -123,7 +123,7 @@ var darkfairModule = new function() {
     };
     
     function onMenuCntClick(e) {
-        if(['IMG', 'B'].indexOf(e.target.tagName) > -1) {
+        if(['B', 'DIV'].indexOf(e.target.tagName) > -1) {
             var isOpened = this.className.indexOf('opened') > -1;
             utils.toggleElementClass(!isOpened, this, 'opened');
             utils.toggleElementClass(isOpened, this, 'closed');
