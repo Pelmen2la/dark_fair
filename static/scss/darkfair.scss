@@ -100,16 +100,24 @@ h1 {
     line-height: 1.5em;
 }
 
+@keyframes show-menu-items {
+      0% { margin-left: -40px; opacity: 0; }
+    100% { margin-left: 0; opacity: 1; }
+}
+
+@keyframes hide-menu-items {
+      0% { display: initial; margin-left: 0; opacity: 1; }
+    100% { display: none; margin-left: 40px; opacity: 0; }
+}
+
 .menu-cnt {
     position: fixed;
     top: 60px;
     left: 60px;
-    height: 40px;
     overflow: hidden;
     padding: 5px;
-    transition: height 0.3s ease-in-out;
 
-    * {
+    b, img, .menu-list {
         cursor: pointer;
     }
 
@@ -127,9 +135,11 @@ h1 {
         }
     }
 
-    &.opened {
-        height: 260px;
+    &:not(.opened):not(.closed) .menu-list {
+        display: none;
+    }
 
+    &.opened {
         img.open {
             display: none;
         }
@@ -137,8 +147,17 @@ h1 {
             display: initial;
         }
 
-        .menu-text-cnt .menu-list {
-            /*display: initial;*/
+        .menu-list {
+            animation: show-menu-items 0.5s steps(20);
+        }
+    }
+
+    &.closed {
+        .menu-list {
+            animation: hide-menu-items 0.5s steps(20);
+            opacity: 0;
+            pointer-events: none;
+            cursor: initial;
         }
     }
 
@@ -146,7 +165,6 @@ h1 {
         float: left;
 
         .menu-list {
-            /*display: none;*/
             color: white;
 
             li {

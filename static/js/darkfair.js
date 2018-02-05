@@ -125,7 +125,8 @@ var darkfairModule = new function() {
     function onMenuCntClick(e) {
         if(['IMG', 'B'].indexOf(e.target.tagName) > -1) {
             var isOpened = this.className.indexOf('opened') > -1;
-            utils[isOpened ? 'removeClassFromElement' : 'addClassToElement'](this, 'opened');
+            utils.toggleElementClass(!isOpened, this, 'opened');
+            utils.toggleElementClass(isOpened, this, 'closed');
         }
         e.target.dataset.blockName && scrollToBlock(e.target.dataset.blockName);
     };
