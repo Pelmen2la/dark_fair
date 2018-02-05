@@ -361,18 +361,45 @@ html.mobile {
     }
 }
 
+@keyframes role-card-hover {
+      0% { transform: scale(1) translateY(0%); }
+     100% { transform: scale(1.5) translateY(16.666667%); }
+}
+
+@keyframes role-card-hover-rev {
+      0% { transform: scale(1.5) translateY(16.666667%); }
+    100% { transform: scale(1) translateY(0%); }
+}
+
 .role-block {
     .role-list {
         margin-bottom: 2em;
+        overflow: visible;
 
         li {
             font-size: 1.3em;
             margin-right: 1em;
-            height: 176px;
-            width: 98px;
+            height: 86px;
+            width: 46px;
             padding: 4px;
             border-radius: 12px;
             cursor: pointer;
+            overflow: visible;
+            transform: scale(1) translateY(0%);
+            animation: role-card-hover-rev 0.5s steps(10);
+
+            div.name-cnt {
+                opacity: 0.01;
+                transition: opacity 0.5s linear;
+                width: 1px;
+                margin: 0 auto;
+                overflow: visible;
+
+                > span {
+                    display: inline-block;
+                    transform: translateX(-50%);
+                }
+            }
 
             img {
                 width: 100%;
@@ -380,13 +407,21 @@ html.mobile {
             }
 
             &.highlighted {
+            }
+
+            &.selected {
                 background-image: url("/images/darkfair/mainbutton.png");
                 background-repeat: no-repeat;
                 background-size: 100% 100%;
             }
 
-            &.selected span {
-                font-weight: bold;
+            &:hover {
+                animation: role-card-hover 0.5s steps(10);
+                transform: scale(1.5) translateY(16.666667%);
+
+                div.name-cnt {
+                    opacity: 1;
+                }
             }
         }
     }

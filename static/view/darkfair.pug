@@ -74,7 +74,8 @@ html(class=isMobile ? 'mobile' : 'desktop')
           each role in roles
             li(data-role-name=role.name)
               img(src="/images/darkfair/fool.png")
-              span= role.name
+              div(class="name-cnt")
+                span= role.name
         div(class="role-info-cnt" id="RoleInfoCnt")
           img(src="/images/darkfair/fool.png")
           div(class="description-cnt")
