@@ -90,6 +90,10 @@ h1 {
     text-align: center;
     cursor: pointer;
     overflow: auto;
+
+    &[disabled] {
+        opacity: 0.5;
+    }
 }
 
 .text-block {
@@ -323,48 +327,21 @@ html.mobile {
     margin: 0 auto;
     margin-top: 2em;
 
-    input {
-        display: none;
-
-        &:checked + .check .inside {
-            visibility: visible;
-        }
-    }
-
     li {
-        div.check {
-            height: 18px;
-            width: 18px;
-            border-radius: 18px;
-            border: 4px solid #EDEFCB;
-            display: inline-block;
-            cursor: pointer;
-            line-height: 18px;
-            margin: 3px 25px 0 0;
-            float: left;
+        input {
+            display: none;
 
-            &:hover {
-                border-color: #FAEDDC;
-            }
-
-            .inside {
-                visibility: hidden;
-                display: inline-block;
-                height: 8px;
-                width: 8px;
-                margin: 0 0 7px 4px;
-                background: #EDEFCB;
-                border-radius: 8px;
-                border: 1px solid #EDEFCB;
+            &:checked + label {
+                background-image: url("/images/darkfair/radio_button_checked.png");
             }
         }
 
         label {
-            display: block;
-            float: left;
-            width: calc(100% - 65px);
+            display: inline-block;
             margin-bottom: 1em;
+            padding-left: 40px;
             cursor: pointer;
+            background: url("/images/darkfair/radio_button.png") 0 5px no-repeat;
         }
     }
 }

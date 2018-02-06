@@ -7,9 +7,6 @@ var darkfairModule = new function() {
     const answerTpl =
             '<li>' +
                 '<input id="{0}" type="radio" name="polling" value="{1}">' +
-                '<div class="check">' +
-                    '<div class="inside"></div>' +
-                '</div>' +
                 '<label for="{0}">{2}</label>' +
             '</li>',
         datePickerCfg = {
@@ -69,7 +66,7 @@ var darkfairModule = new function() {
         utils.gBID('QuestionAnswerList').innerHTML = question.answers.map((a, i) => {
             return utils.stringFormat(answerTpl, 'option' + i, i, a)
         }).join('');
-        addListenersToAnswerRadiobuttons(onAnswerRadiobuttonClick);
+        addListenersToAnswerRadiobuttons();
     };
 
     function selectRole(role) {
@@ -103,16 +100,23 @@ var darkfairModule = new function() {
         setActiveQuestion(getAnswers().length);
     };
 
-    function addListenersToAnswerRadiobuttons(fn) {
+    function addListenersToAnswerRadiobuttons() {
         utils.gBID('QuestionAnswerList').querySelectorAll('input').forEach((b) => {
-            b.addEventListener('click', fn)
+            b.addEventListener('click', () => {
+                utils.gBID('AcceptQuestionBtn').removeAttribute('disabled');
+            });
         });
     };
 
-    function onAnswerRadiobuttonClick(e) {
-        var val = arguments[0].target.value,
+    function onAcceptAnswerBtnClick() {
+        if(this.getAttribute('disabled')) {
+            return;
+        }
+
+        var answer = utils.gBID('QuestionAnswerList').querySelector('input:checked').value,
             answers = getAnswers();
-        answers.push(val);
+        this.setAttribute('disabled', true);
+        answers.push(answer);
         setLocalStorageData('answers', answers);
         if(answers.length === window.questionListData.length) {
             setLocalStorageData('answers', []);
@@ -177,6 +181,7 @@ var darkfairModule = new function() {
         utils.gBID('MenuContainer').addEventListener('click', onMenuCntClick);
         utils.gBID('RoleBlock').addEventListener('click', onRoleBlockClick);
         utils.gBID('MainContainer').addEventListener('scroll', onMainCntScroll);
+        utils.gBID('AcceptQuestionBtn').addEventListener('click', onAcceptAnswerBtnClick);
         ['up', 'down'].forEach((name) => {
             document.querySelector('.navigation-arrow.' + name).addEventListener('click', onNavArrowClick);
         });
