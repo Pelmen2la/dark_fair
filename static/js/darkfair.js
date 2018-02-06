@@ -42,7 +42,7 @@ var darkfairModule = new function() {
 
     function renderQuestions() {
         utils.gBID('QuestionList').innerHTML = window.questionListData.map((q, i) => {
-            return utils.stringFormat('<li class="disabled">{0}</li>', i + 1);
+            return utils.stringFormat('<li>{0}</li>', i + 1);
         }).join('');
     };
     
@@ -63,7 +63,7 @@ var darkfairModule = new function() {
             question = questions[index];
         for(var i = 0; i < questions.length; i++) {
             var list = utils.gBID('QuestionList');
-            utils.toggleElementClass(i > index, list.children[i], 'disabled');
+            utils.toggleElementClass(i <= index, list.children[i], 'active');
         }
         utils.gBID('QuestionTextCnt').innerHTML = question.text;
         utils.gBID('QuestionAnswerList').innerHTML = question.answers.map((a, i) => {

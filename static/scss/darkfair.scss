@@ -290,6 +290,12 @@ html.mobile {
     }
 }
 
+@keyframes question-card-activate {
+      0% { transform: rotateY(0deg); background-image: url("/images/darkfair/fool_dark.png"); color: transparent; }
+     50% { transform: rotateY(90deg); background-image: url("/images/darkfair/fool_dark.png"); color: transparent; }
+    100% { transform: rotateY(0deg); background-image: url("/images/darkfair/fool.png"); color: inherit; }
+}
+
 .question-list {
     li {
         margin-right: 0.6em;
@@ -300,11 +306,13 @@ html.mobile {
         font-weight: bold;
         text-align: center;
         line-height: 80px;
-        background-image: url("/images/darkfair/fool.png");
+        color: transparent;
+        background-image: url("/images/darkfair/fool_dark.png");
 
-        &.disabled {
-            color: transparent;
-            background-image: url("/images/darkfair/fool_dark.png");
+        &.active {
+            color: inherit;
+            background-image: url("/images/darkfair/fool.png");
+            animation: question-card-activate 1s steps(20);
         }
     }
 }
