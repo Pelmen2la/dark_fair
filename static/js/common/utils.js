@@ -26,6 +26,11 @@ function toggleElementClass(condition, el, className) {
     condition ? addClassToElement(el, className) : removeClassFromElement(el, className);
 };
 
+function blinkElementClass(el, className, time) {
+    addClassToElement(el, className);
+    window.setTimeout(() => removeClassFromElement(el, className), time);
+};
+
 function stringFormat(tpl) {
     for(var i = 1; i < arguments.length; i++) {
         tpl = tpl.replace(new RegExp('\\{' + (i - 1) + '\\}', 'g'), arguments[i]);
@@ -49,6 +54,7 @@ module.exports = {
     addClassToElement: addClassToElement,
     removeClassFromElement: removeClassFromElement,
     toggleElementClass: toggleElementClass,
+    blinkElementClass: blinkElementClass,
     stringFormat: stringFormat,
     capitalizeString: capitalizeString,
     createElementFromHTML: createElementFromHTML

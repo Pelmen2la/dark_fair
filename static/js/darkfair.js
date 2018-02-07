@@ -113,7 +113,8 @@ var darkfairModule = new function() {
             return;
         }
 
-        var answer = utils.gBID('QuestionAnswerList').querySelector('input:checked').value,
+        var questionAnswerList = utils.gBID('QuestionAnswerList'),
+            answer = questionAnswerList.querySelector('input:checked').value,
             answers = getAnswers();
         this.setAttribute('disabled', true);
         answers.push(answer);
@@ -123,7 +124,9 @@ var darkfairModule = new function() {
             highlightRoles([window.roleListData[0]]);
             scrollToBlock('role');
         }
-        ensureActiveQuestion();
+        utils.blinkElementClass(questionAnswerList, 'blink', 1000);
+        utils.blinkElementClass(utils.gBID('QuestionTextCnt'), 'blink', 1000);
+        window.setTimeout(ensureActiveQuestion, 400);
     };
     
     function onMenuCntClick(e) {

@@ -326,6 +326,16 @@ html.mobile {
     }
 }
 
+@keyframes blink {
+       0% { opacity: 1; }
+      50% { opacity: 0; }
+     100% { opacity: 1; }
+}
+
+*.blink {
+    animation: blink 1s steps(20);
+}
+
 .answer-list {
     width: 31.25%;
     min-width: 600px;
@@ -352,7 +362,7 @@ html.mobile {
 }
 
 @keyframes role-card-hover {
-      0% { transform: scale(1) translateY(0%); }
+       0% { transform: scale(1) translateY(0%); }
      100% { transform: scale(1.5) translateY(16.666667%); }
 }
 
