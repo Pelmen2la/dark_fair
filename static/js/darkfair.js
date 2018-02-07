@@ -35,7 +35,8 @@ var darkfairModule = new function() {
             },
         };
     var me = this,
-        scrollHandlerTimeoutId;
+        scrollHandlerTimeoutId,
+        navArrowScrollIntervalId;
 
     function renderQuestions() {
         utils.gBID('QuestionList').innerHTML = window.questionListData.map((q, i) => {
@@ -160,26 +161,28 @@ var darkfairModule = new function() {
         }, 100);
     };
 
-    function onNavArrowClick() {
-        var isUp = this.className.indexOf('up') > - 1,
-            mainCnt = utils.gBID('MainContainer'),
-            targetOffset = isUp ? 0 : mainCnt.scrollHeight,
-            scrollTop = mainCnt.scrollTop;
-        document.querySelectorAll('.main-block').forEach((b) => {
-            var scrollDiff = b.offsetTop - scrollTop;
-            if(isUp && scrollDiff < 0 && scrollDiff < (scrollTop - targetOffset)) {
-                targetOffset = b.offsetTop;
-            }
-            if(!isUp && scrollDiff > 0 && scrollDiff < (targetOffset - scrollTop)) {
-                targetOffset = b.offsetTop;
-            }
-        });
-        mainCnt.scrollTop = targetOffset;
+    function onNavArrowMouseDown() {
+        navArrowScrollIntervalId = window.setInterval(() => {
+            var isUp = this.className.indexOf('up') > -1,
+                mainCnt = utils.gBID('MainContainer');
+            mainCnt.scrollTop += 20 * (isUp ? -1 : 1);
+        }, 25);
+    };
+    
+    function onNavArrowMouseLostFocus() {
+        window.clearInterval(navArrowScrollIntervalId);
     };
 
     me.init = function() {
         utils.gBID('MenuContainer').addEventListener('click', onMenuCntClick);
-        if(window.pageName === 'role_interview') {
+        if(window.pageName === 'index') {
+            utils.gBID('MainContainer').addEventListener('scroll', onMainCntScroll);
+            ['up', 'down'].forEach((name) => {
+                document.querySelector('.navigation-arrow.' + name).addEventListener('mousedown', onNavArrowMouseDown);
+                document.querySelector('.navigation-arrow.' + name).addEventListener('mouseup', onNavArrowMouseLostFocus);
+                document.querySelector('.navigation-arrow.' + name).addEventListener('mouseout', onNavArrowMouseLostFocus);
+            });
+        } else if(window.pageName === 'role_interview') {
             renderQuestions();
             ensureActiveQuestion();
             utils.gBID('AcceptQuestionBtn').addEventListener('click', onAcceptAnswerBtnClick);
@@ -188,11 +191,6 @@ var darkfairModule = new function() {
             utils.gBID('RoleBlock').addEventListener('click', onRoleBlockClick);
         } else if(window.pageName === 'payment') {
             TinyDatePicker('#CalendarCnt', datePickerCfg);
-        } else {
-            utils.gBID('MainContainer').addEventListener('scroll', onMainCntScroll);
-            ['up', 'down'].forEach((name) => {
-                document.querySelector('.navigation-arrow.' + name).addEventListener('click', onNavArrowClick);
-            });
         }
     };
 };
