@@ -1,0 +1,25 @@
+extends main_tpl.pug
+
+block title
+  | Roles
+
+block maincontent
+
+  div(class="main-block role-block" id="RoleBlock")
+    ul(class="image-list role-list" id="RoleList")
+        each role in roles
+            li(data-role-name=role.name)
+                img(src="/images/darkfair/fool.png")
+                div(class="name-cnt")
+                    span= role.name
+    div(class="role-info-cnt" id="RoleInfoCnt")
+        img(src="/images/darkfair/fool.png")
+        div(class="description-cnt")
+            b(class="name")
+            div(class="main-btn")
+                | watch teaser
+            p(class="description")
+    div(class="main-btn buy-ticket-btn")
+        | buy ticket for this role
+
+  script(type="text/javascript")!= "window.roleListData = " + JSON.stringify(roles) + ";"

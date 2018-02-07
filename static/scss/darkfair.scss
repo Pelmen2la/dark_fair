@@ -1,4 +1,4 @@
-@import 'reset-css/reset.css';
+@import './../../node_modules/reset-css/_reset.scss';
 
 @font-face {
     font-family: katona;
@@ -12,6 +12,11 @@ body, html, .main-cnt {
 html {
     font-family: katona;
     font-size: 30px;
+    color: #F1E6D2;
+}
+
+a {
+    text-decoration: none;
     color: #F1E6D2;
 }
 

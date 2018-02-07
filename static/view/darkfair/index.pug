@@ -1,0 +1,43 @@
+extends main_tpl.pug
+
+block title
+  | Dark fair
+
+block maincontent
+
+  div(class="main-block start-block")
+    h1
+      |dark fair
+    div(class="text-block")
+      | creama cup, frappucino decaffeinated mocha sit galao
+      br
+      | seasonal french press brewed coffee. aromatic milk variety,
+      br
+      | roast doppio aroma breve qui con pannna galao?
+    div(class="main-btn")
+      |watch teaser
+    div(class="main-btn")
+      | buy ticket
+    div(class="main-btn")
+      | choose your role
+  div(class="main-block description-block" id="DescriptionBlock")
+    div(class="text-block order0")
+      img(src="/images/darkfair/description0.png")
+      |creama cup, frappucino decaffeinated mocha sit galao
+      br
+      |seasonal french press brewed coffee. aromatic milk variety,
+      br
+      |roast doppio aroma breve qui con pannna galao?
+    div(class="text-block order1")
+      if isMobile
+        img(src="/images/darkfair/description1.png")
+      | creama cup, frappucino decaffeinated mocha sit galao
+      br
+      | seasonal french press brewed coffee. aromatic milk variety,
+      br
+      | roast doppio aroma breve qui con pannna galao?
+      if !isMobile
+        img(src="/images/darkfair/description1.png")
+
+  img(src="/images/darkfair/arrow_up.png" class="navigation-arrow up")
+  img(src="/images/darkfair/arrow_down.png" class="navigation-arrow down visible")

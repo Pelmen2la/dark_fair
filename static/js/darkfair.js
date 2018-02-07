@@ -175,17 +175,22 @@ var darkfairModule = new function() {
     };
 
     me.init = function() {
-        renderQuestions();
-        ensureActiveQuestion();
-        selectRole(window.roleListData[0]);
         utils.gBID('MenuContainer').addEventListener('click', onMenuCntClick);
-        utils.gBID('RoleBlock').addEventListener('click', onRoleBlockClick);
-        utils.gBID('MainContainer').addEventListener('scroll', onMainCntScroll);
-        utils.gBID('AcceptQuestionBtn').addEventListener('click', onAcceptAnswerBtnClick);
-        ['up', 'down'].forEach((name) => {
-            document.querySelector('.navigation-arrow.' + name).addEventListener('click', onNavArrowClick);
-        });
-        TinyDatePicker('#CalendarCnt', datePickerCfg);
+        if(window.pageName === 'role_interview') {
+            renderQuestions();
+            ensureActiveQuestion();
+            utils.gBID('AcceptQuestionBtn').addEventListener('click', onAcceptAnswerBtnClick);
+        } else if(window.pageName === 'roles') {
+            selectRole(window.roleListData[0]);
+            utils.gBID('RoleBlock').addEventListener('click', onRoleBlockClick);
+        } else if(window.pageName === 'payment') {
+            TinyDatePicker('#CalendarCnt', datePickerCfg);
+        } else {
+            utils.gBID('MainContainer').addEventListener('scroll', onMainCntScroll);
+            ['up', 'down'].forEach((name) => {
+                document.querySelector('.navigation-arrow.' + name).addEventListener('click', onNavArrowClick);
+            });
+        }
     };
 };
 

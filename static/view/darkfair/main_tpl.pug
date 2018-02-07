@@ -1,0 +1,38 @@
+doctype html
+html(class=isMobile ? 'mobile' : 'desktop')
+  head
+    title
+      block title
+
+  body
+    div(class="main-cnt" id="MainContainer")
+
+      div(class="menu-cnt" id="MenuContainer")
+        div(class="button-cnt")
+          div(class="top")
+          div(class="middle")
+          div(class="bottom")
+        div(class="menu-text-cnt")
+          b
+            | dark fair
+          ul(class="menu-list")
+            li(data-block-name="description")
+              a(href="/")
+                | Информация
+            li(data-block-name="role")
+              a(href="/role_interview")
+                | Пройти опрос
+            li(data-block-name="role")
+              a(href="/roles")
+                | Выбор роли
+            li(data-block-name="tickets")
+              a(href="/payment")
+                | Купить билет
+            li(data-block-name="contacts")
+              a(href="/contacts")
+                | Контакты
+
+      block maincontent
+
+    script(type="text/javascript")!= "window.pageName = '" + pageName + "';"
+    script(src='/dist/js/' + gameName + '.js')

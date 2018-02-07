@@ -1,0 +1,14 @@
+extends main_tpl.pug
+
+block title
+  | Role interview
+
+block maincontent
+
+  div(class="main-block polling-block" id="PollingBlock")
+    ul(class="image-list question-list" id="QuestionList")
+    div(class="text-block" id="QuestionTextCnt")
+    ul(class="answer-list" id="QuestionAnswerList")
+    div(class="main-btn" id="AcceptQuestionBtn" disabled)
+      | Выбрать
+  script(type="text/javascript")!= "window.questionListData = " + JSON.stringify(questions) + ";"
