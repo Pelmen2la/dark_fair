@@ -48,6 +48,10 @@ function createElementFromHTML(htmlString) {
     return div.firstChild;
 };
 
+function setElementHidden(el, isHidden) {
+    toggleElementClass(isHidden, el, 'hidden');
+};
+
 module.exports = {
     createRequest: createRequest,
     gBID: gBID,
@@ -57,5 +61,6 @@ module.exports = {
     blinkElementClass: blinkElementClass,
     stringFormat: stringFormat,
     capitalizeString: capitalizeString,
-    createElementFromHTML: createElementFromHTML
+    createElementFromHTML: createElementFromHTML,
+    setElementHidden: setElementHidden
 };

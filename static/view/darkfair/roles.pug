@@ -19,7 +19,14 @@ block maincontent
             div(class="main-btn")
                 | watch teaser
             p(class="description")
-    div(class="main-btn buy-ticket-btn")
-        | buy ticket for this role
+    div(class="main-btn buy-ticket-btn" id="BuyTicketBtn")
+      | buy ticket for this role
+    div(id="RecommendedRoleText" class="text-block")
+      | Мы подобрали для вас 4 наиболее подходящиие роли, вы можете
+      | выбрать одну из них, но так же ознакомьтесь с остальными.
+      | Возможно оодна из них будет более интересной для вас. Скидка
+      | на роли, которые были предложены: 5%.
+      | Все роли равнозначные по интересности.
+    ul(class="image-list role-list recommended-role-list" id="RecommendedRoleList")
 
   script(type="text/javascript")!= "window.roleListData = " + JSON.stringify(roles) + ";"

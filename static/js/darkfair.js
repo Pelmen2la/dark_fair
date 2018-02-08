@@ -9,6 +9,13 @@ var darkfairModule = new function() {
                 '<input id="{0}" type="radio" name="polling" value="{1}">' +
                 '<label for="{0}">{2}</label>' +
             '</li>',
+        roleTpl =
+            '<li data-role-name="{0}">' +
+                '<img src="/images/darkfair/fool.png"/>' +
+                '<div class="name-cnt">' +
+                    '<span>{0}</span>' +
+                '</div>' +
+            '</li>',
         datePickerCfg = {
             mode: 'dp-permanent',
             dayOffset: 1,
@@ -70,16 +77,6 @@ var darkfairModule = new function() {
         addListenersToAnswerRadiobuttons();
     };
 
-    function selectRole(role) {
-        var infoCnt = utils.gBID('RoleInfoCnt'),
-            rolesList = utils.gBID('RoleList');
-        infoCnt.querySelector('b.name').innerHTML = role.name;
-        infoCnt.querySelector('p.description').innerHTML = role.description;
-        for(var li, i = 0; li = rolesList.children[i]; i++) {
-            utils.toggleElementClass(li.dataset.roleName === role.name, li, 'selected');
-        }
-    };
-
     function highlightRoles(roles) {
         var rolesList = utils.gBID('RoleList');
         for(var li, i = 0; li = rolesList.children[i]; i++) {
@@ -122,21 +119,44 @@ var darkfairModule = new function() {
         setLocalStorageData('answers', answers);
         if(answers.length === window.questionListData.length) {
             setLocalStorageData('answers', []);
-            highlightRoles([window.roleListData[0]]);
-            scrollToBlock('role');
+            setLocalStorageData('recommendedRoles', ['warrior']);
+            location.replace('/roles');
+        } else {
+            utils.blinkElementClass(questionAnswerList, 'blink', 1000);
+            utils.blinkElementClass(utils.gBID('QuestionTextCnt'), 'blink', 1000);
+            window.setTimeout(ensureActiveQuestion, 400);
         }
-        utils.blinkElementClass(questionAnswerList, 'blink', 1000);
-        utils.blinkElementClass(utils.gBID('QuestionTextCnt'), 'blink', 1000);
-        window.setTimeout(ensureActiveQuestion, 400);
     };
-    
+
+    function setRolesPageState(selectedRole, recommendedRoles) {
+        var textEl = utils.gBID('RecommendedRoleText'),
+            recommendedRoleList = utils.gBID('RecommendedRoleList'),
+            roleInfoCnt = utils.gBID('RoleInfoCnt'),
+            rolesList = utils.gBID('RoleList'),
+            buyTicketBtn = utils.gBID('BuyTicketBtn');
+        utils.setElementHidden(textEl, !recommendedRoles);
+        utils.setElementHidden(recommendedRoleList, !recommendedRoles);
+        utils.setElementHidden(roleInfoCnt, !selectedRole);
+        utils.setElementHidden(buyTicketBtn, !selectedRole);
+        if(recommendedRoles) {
+            recommendedRoleList.innerHTML = recommendedRoles.map((r) => {
+                return utils.stringFormat(roleTpl, r.name)
+            }).join('');
+        } else if(selectedRole) {
+            roleInfoCnt.querySelector('b.name').innerHTML = selectedRole.name;
+            roleInfoCnt.querySelector('p.description').innerHTML = selectedRole.description;
+            for(var li, i = 0; li = rolesList.children[i]; i++) {
+                utils.toggleElementClass(li.dataset.roleName === selectedRole.name, li, 'selected');
+            }
+        }
+    };
+
     function onMenuCntClick(e) {
         if(['B', 'DIV'].indexOf(e.target.tagName) > -1) {
             var isOpened = this.className.indexOf('opened') > -1;
             utils.toggleElementClass(!isOpened, this, 'opened');
             utils.toggleElementClass(isOpened, this, 'closed');
         }
-        e.target.dataset.blockName && scrollToBlock(e.target.dataset.blockName);
     };
 
     function onRoleBlockClick(e) {
@@ -147,7 +167,7 @@ var darkfairModule = new function() {
         if(!el) {
             return;
         }
-        selectRole(window.roleListData.filter((r) => r.name == el.dataset.roleName)[0]);
+        setRolesPageState(window.roleListData.filter((r) => r.name == el.dataset.roleName)[0], null);
     };
 
     function onMainCntScroll() {
@@ -173,24 +193,46 @@ var darkfairModule = new function() {
         window.clearInterval(navArrowScrollIntervalId);
     };
 
+    function initIndexPage() {
+        utils.gBID('MainContainer').addEventListener('scroll', onMainCntScroll);
+        ['up', 'down'].forEach((name) => {
+            document.querySelector('.navigation-arrow.' + name).addEventListener('mousedown', onNavArrowMouseDown);
+            document.querySelector('.navigation-arrow.' + name).addEventListener('mouseup', onNavArrowMouseLostFocus);
+            document.querySelector('.navigation-arrow.' + name).addEventListener('mouseout', onNavArrowMouseLostFocus);
+        });
+    };
+
+    function initRoleInterviewPage() {
+        renderQuestions();
+        ensureActiveQuestion();
+        utils.gBID('AcceptQuestionBtn').addEventListener('click', onAcceptAnswerBtnClick);
+    };
+
+    function initRolesPage() {
+        var recommendedRoleNames = getLocalStorageData('recommendedRoles');
+        if(recommendedRoleNames) {
+            var recommendedRoles = window.roleListData.filter((r) => recommendedRoleNames.indexOf(r.name) > -1);
+            setRolesPageState(null, recommendedRoles);
+        } else {
+            setRolesPageState(window.roleListData[0], null);
+        }
+        utils.gBID('RoleBlock').addEventListener('click', onRoleBlockClick);
+    };
+
+    function initPaymentPage() {
+        TinyDatePicker('#CalendarCnt', datePickerCfg);
+    };
+
     me.init = function() {
         utils.gBID('MenuContainer').addEventListener('click', onMenuCntClick);
         if(window.pageName === 'index') {
-            utils.gBID('MainContainer').addEventListener('scroll', onMainCntScroll);
-            ['up', 'down'].forEach((name) => {
-                document.querySelector('.navigation-arrow.' + name).addEventListener('mousedown', onNavArrowMouseDown);
-                document.querySelector('.navigation-arrow.' + name).addEventListener('mouseup', onNavArrowMouseLostFocus);
-                document.querySelector('.navigation-arrow.' + name).addEventListener('mouseout', onNavArrowMouseLostFocus);
-            });
+            initIndexPage();
         } else if(window.pageName === 'role_interview') {
-            renderQuestions();
-            ensureActiveQuestion();
-            utils.gBID('AcceptQuestionBtn').addEventListener('click', onAcceptAnswerBtnClick);
+            initRoleInterviewPage();
         } else if(window.pageName === 'roles') {
-            selectRole(window.roleListData[0]);
-            utils.gBID('RoleBlock').addEventListener('click', onRoleBlockClick);
+            initRolesPage();
         } else if(window.pageName === 'payment') {
-            TinyDatePicker('#CalendarCnt', datePickerCfg);
+            initPaymentPage();
         }
     };
 };
